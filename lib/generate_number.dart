@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 int? number;
+bool isTapped = false;
 
 class GenerateNumber extends StatefulWidget {
   const GenerateNumber({super.key});
@@ -17,6 +18,14 @@ class _GenerateNumberState extends State<GenerateNumber> {
     void generateNumber() {
       setState(() {
         number = Random().nextInt(100);
+        isTapped = false;
+      });
+    }
+
+    void resetNumber() {
+      setState(() {
+        number = null;
+        isTapped = true;
       });
     }
 
@@ -26,8 +35,8 @@ class _GenerateNumberState extends State<GenerateNumber> {
         Text(
           number == null ? "Tap to get a number" : "$number",
           style: TextStyle(
-            fontSize: 25.0,
-            color: Colors.red,
+            fontSize: 20.0,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -40,8 +49,21 @@ class _GenerateNumberState extends State<GenerateNumber> {
 
           onPressed: generateNumber,
           child: Text(
-            "Tap",
-            style: TextStyle(fontSize: 25.0, color: Colors.black),
+            "Generate",
+            style: TextStyle(fontSize: 20.0, color: Colors.black),
+          ),
+        ),
+        SizedBox(height: 25),
+        TextButton(
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.grey,
+            padding: EdgeInsets.fromLTRB(75, 10, 75, 10),
+          ),
+
+          onPressed: isTapped ? null : resetNumber,
+          child: Text(
+            "Reset",
+            style: TextStyle(fontSize: 20.0, color: Colors.black),
           ),
         ),
       ],
